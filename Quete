@@ -1,0 +1,76 @@
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+
+    Console.WriteLine("Rentrez le nom du premier personnage");
+    Console.WriteLine("Rentrez le nom du deuxième personnage");
+
+    Character player1 = new Character();
+    player1.name = Console.ReadLine();
+    Character player2 = new Character();
+    player2.name = Console.ReadLine();
+
+    Console.WriteLine("Statisiques de " + player1.name + ": ");
+    Console.WriteLine();
+    Console.WriteLine("PV initial de " + player1.name + " " + player1.pointsVie);
+    Console.WriteLine("Points d'attaques de " + player1.name + " = " + player1.pointsAttack);
+    Console.WriteLine("Points de défense de " + player1.name + " = " + player1.pointsDefense);
+    Console.WriteLine();
+    Console.WriteLine("Statisiques de " + player2.name + ": ");
+    Console.WriteLine();
+    Console.WriteLine("PV initial de " + player2.name + " = " + player2.pointsVie);
+    Console.WriteLine("Points d'attaques de " + player2.name + " = " + player2.pointsAttack);
+    Console.WriteLine("Points de défense de " + player1.name + " = " + player1.pointsDefense);
+
+    Console.WriteLine();
+    Console.WriteLine("Debut du combat!");
+    Console.WriteLine("Fight!");
+    Console.WriteLine();
+
+    while ((player1.isAlive() == true) && (player2.isAlive() == true)) {
+
+    player1.Attack(player2);
+    Console.WriteLine("PV de " + player1.name + " = " + player2.pointsVie);
+    player2.Attack(player1);
+    Console.WriteLine("Pv de " + player2.name + " = " + player1.pointsVie);
+    }
+    
+    if (player1.isAlive()) {
+
+      Console.WriteLine(player1.name + " est victorieux!");
+    }
+    if (player2.isAlive()) {
+
+      Console.WriteLine(player2.name + "est victorieux!");
+    }
+
+
+  }
+  public class Character {
+   
+    public string name;  
+    Random random = new Random();
+    public int pointsVie = new Random().Next(50, 150);
+    public int pointsAttack = new Random().Next(10, 30);
+    public int pointsDefense = new Random().Next(1, 10);
+
+    public bool isAlive() {
+
+      if (pointsVie > 0) {
+
+        return true;
+      }
+
+      else {
+        return false;
+      }
+    }
+
+    public void Attack(Character Adversaire) {
+
+      Adversaire.pointsVie = (Adversaire.pointsVie) - (pointsAttack - Adversaire.pointsDefense);
+
+    }
+  } 
+}
